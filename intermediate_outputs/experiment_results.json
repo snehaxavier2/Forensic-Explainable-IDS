@@ -1,0 +1,907 @@
+{
+  "run_id": "20260329_093443",
+  "title": "Forensic-Ready Explainable Intrusion Detection with Temporal Graph Modeling and Counterfactual Cyber Defense",
+  "created_at": "2026-03-29T09:34:43.881350",
+  "status_notes": [
+    {
+      "timestamp": "2026-03-29T09:34:43.882139",
+      "note": "Experiment registry initialized."
+    },
+    {
+      "timestamp": "2026-03-29T09:34:53.206242",
+      "note": "Dataset loaded successfully and basic validation completed."
+    },
+    {
+      "timestamp": "2026-03-29T09:35:04.450720",
+      "note": "Data cleaning completed."
+    },
+    {
+      "timestamp": "2026-03-29T09:36:03.737496",
+      "note": "Feature matrix and target vector prepared with leakage-safe column removal."
+    },
+    {
+      "timestamp": "2026-03-29T09:36:57.637384",
+      "note": "Train/test split completed with stratification."
+    },
+    {
+      "timestamp": "2026-03-29T09:38:34.575967",
+      "note": "Baseline Random Forest model trained with diagnostics."
+    },
+    {
+      "timestamp": "2026-03-29T09:41:13.762351",
+      "note": "Current macro-F1 = 0.9172. Promising baseline."
+    },
+    {
+      "timestamp": "2026-03-29T09:43:43.041754",
+      "note": "Global explainability completed using shap."
+    },
+    {
+      "timestamp": "2026-03-29T09:45:44.522014",
+      "note": "LIME explanation completed with robust unseen-category handling."
+    },
+    {
+      "timestamp": "2026-03-29T09:46:44.961870",
+      "note": "Forensic prediction table constructed with hybrid suspicion scoring."
+    },
+    {
+      "timestamp": "2026-03-29T09:50:11.207350",
+      "note": "Temporal interaction graph constructed with normalized edge suspicion."
+    },
+    {
+      "timestamp": "2026-03-29T09:50:35.312113",
+      "note": "Graph-based suspicious node ranking completed."
+    },
+    {
+      "timestamp": "2026-03-29T09:51:11.721183",
+      "note": "Graph-based suspicious node ranking completed."
+    },
+    {
+      "timestamp": "2026-03-29T09:52:26.509173",
+      "note": "Counterfactual stage completed with status: failed_or_skipped."
+    }
+  ],
+  "dataset": {
+    "dataset_path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/data/ton-iot-train_test_network.csv",
+    "n_rows": 211043,
+    "n_columns": 44,
+    "columns": [
+      "src_ip",
+      "src_port",
+      "dst_ip",
+      "dst_port",
+      "proto",
+      "service",
+      "duration",
+      "src_bytes",
+      "dst_bytes",
+      "conn_state",
+      "missed_bytes",
+      "src_pkts",
+      "src_ip_bytes",
+      "dst_pkts",
+      "dst_ip_bytes",
+      "dns_query",
+      "dns_qclass",
+      "dns_qtype",
+      "dns_rcode",
+      "dns_AA",
+      "dns_RD",
+      "dns_RA",
+      "dns_rejected",
+      "ssl_version",
+      "ssl_cipher",
+      "ssl_resumed",
+      "ssl_established",
+      "ssl_subject",
+      "ssl_issuer",
+      "http_trans_depth",
+      "http_method",
+      "http_uri",
+      "http_version",
+      "http_request_body_len",
+      "http_response_body_len",
+      "http_status_code",
+      "http_user_agent",
+      "http_orig_mime_types",
+      "http_resp_mime_types",
+      "weird_name",
+      "weird_addl",
+      "weird_notice",
+      "label",
+      "type"
+    ],
+    "missing_values_total": 0,
+    "label_column": "type",
+    "label_distribution": {
+      "normal": 50000,
+      "backdoor": 20000,
+      "ddos": 20000,
+      "dos": 20000,
+      "injection": 20000,
+      "password": 20000,
+      "scanning": 20000,
+      "ransomware": 20000,
+      "xss": 20000,
+      "mitm": 1043
+    },
+    "identifier_availability": {
+      "src_ip_present": true,
+      "dst_ip_present": true,
+      "timestamp_present": false,
+      "src_ip_column": "src_ip",
+      "dst_ip_column": "dst_ip",
+      "timestamp_column": null
+    }
+  },
+  "preprocessing": {
+    "n_rows_before": 211043,
+    "n_rows_after_deduplication": 190474,
+    "duplicates_removed": 20569,
+    "identifier_columns": [
+      "src_ip",
+      "dst_ip"
+    ],
+    "remaining_missing_values_total": 0,
+    "dropped_columns": [
+      "type",
+      "dst_ip",
+      "label",
+      "src_ip"
+    ],
+    "n_features_raw": 40,
+    "n_numeric_features": 16,
+    "n_categorical_features": 24,
+    "numeric_columns": [
+      "src_port",
+      "dst_port",
+      "duration",
+      "src_bytes",
+      "dst_bytes",
+      "missed_bytes",
+      "src_pkts",
+      "src_ip_bytes",
+      "dst_pkts",
+      "dst_ip_bytes",
+      "dns_qclass",
+      "dns_qtype",
+      "dns_rcode",
+      "http_request_body_len",
+      "http_response_body_len",
+      "http_status_code"
+    ],
+    "categorical_columns": [
+      "proto",
+      "service",
+      "conn_state",
+      "dns_query",
+      "dns_AA",
+      "dns_RD",
+      "dns_RA",
+      "dns_rejected",
+      "ssl_version",
+      "ssl_cipher",
+      "ssl_resumed",
+      "ssl_established",
+      "ssl_subject",
+      "ssl_issuer",
+      "http_trans_depth",
+      "http_method",
+      "http_uri",
+      "http_version",
+      "http_user_agent",
+      "http_orig_mime_types",
+      "http_resp_mime_types",
+      "weird_name",
+      "weird_addl",
+      "weird_notice"
+    ],
+    "target_classes": [
+      "backdoor",
+      "ddos",
+      "dos",
+      "injection",
+      "mitm",
+      "normal",
+      "password",
+      "ransomware",
+      "scanning",
+      "xss"
+    ]
+  },
+  "split": {
+    "train_size": 133331,
+    "test_size": 57143,
+    "test_ratio": 0.3,
+    "stratified": true,
+    "random_state": 42
+  },
+  "model": {
+    "model_name": "RandomForestClassifier",
+    "hyperparameters": {
+      "n_estimators": 200,
+      "max_depth": 20,
+      "min_samples_split": 10,
+      "min_samples_leaf": 4,
+      "class_weight": "balanced_subsample",
+      "n_jobs": -1,
+      "random_state": 42
+    },
+    "training_time_sec": 50.79555654525757,
+    "n_transformed_features": 880,
+    "tree_depth": {
+      "avg_depth": 19.635,
+      "max_depth": 20,
+      "min_depth": 8
+    },
+    "tree_nodes": {
+      "avg_nodes": 441.84,
+      "max_nodes": 867,
+      "min_nodes": 65
+    },
+    "training_accuracy": 0.9723995169915474,
+    "top_feature_importances": [
+      {
+        "feature": "num__src_ip_bytes",
+        "importance": 0.10973148616089849
+      },
+      {
+        "feature": "num__src_port",
+        "importance": 0.09235483807983842
+      },
+      {
+        "feature": "num__dst_port",
+        "importance": 0.08667564484502265
+      },
+      {
+        "feature": "num__duration",
+        "importance": 0.06876669149433609
+      },
+      {
+        "feature": "num__dst_ip_bytes",
+        "importance": 0.05089982972969521
+      },
+      {
+        "feature": "num__src_pkts",
+        "importance": 0.05039467290739387
+      },
+      {
+        "feature": "num__dst_pkts",
+        "importance": 0.04658087564878426
+      },
+      {
+        "feature": "num__src_bytes",
+        "importance": 0.04270705147016501
+      },
+      {
+        "feature": "num__dst_bytes",
+        "importance": 0.038921321974118094
+      },
+      {
+        "feature": "cat__conn_state_REJ",
+        "importance": 0.038399060512566564
+      },
+      {
+        "feature": "cat__conn_state_S0",
+        "importance": 0.03834455701791109
+      },
+      {
+        "feature": "cat__conn_state_OTH",
+        "importance": 0.03366406987102319
+      },
+      {
+        "feature": "cat__conn_state_SF",
+        "importance": 0.026499155807285592
+      },
+      {
+        "feature": "cat__conn_state_S1",
+        "importance": 0.024348030618886657
+      },
+      {
+        "feature": "cat__service_http",
+        "importance": 0.017947754532580535
+      }
+    ],
+    "diagnostic_notes": [
+      "Average tree depth is relatively high; this may increase variance and reduce interpretability.",
+      "The transformed feature space is large, which may increase computational cost for SHAP and LIME."
+    ]
+  },
+  "evaluation": {
+    "accuracy": 0.9705825735435661,
+    "precision_macro": 0.9108134215488652,
+    "recall_macro": 0.9658504474237313,
+    "f1_macro": 0.9172441575479283,
+    "confusion_matrix": [
+      [
+        5603,
+        0,
+        0,
+        0,
+        9,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        5604,
+        2,
+        144,
+        43,
+        68,
+        19,
+        24,
+        0,
+        94
+      ],
+      [
+        0,
+        5,
+        5522,
+        4,
+        104,
+        6,
+        0,
+        0,
+        57,
+        0
+      ],
+      [
+        0,
+        44,
+        0,
+        5677,
+        187,
+        1,
+        0,
+        0,
+        26,
+        54
+      ],
+      [
+        0,
+        3,
+        0,
+        9,
+        296,
+        1,
+        0,
+        0,
+        2,
+        1
+      ],
+      [
+        0,
+        6,
+        0,
+        5,
+        120,
+        12453,
+        1,
+        7,
+        0,
+        20
+      ],
+      [
+        0,
+        2,
+        0,
+        7,
+        77,
+        1,
+        5848,
+        0,
+        0,
+        24
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        4420,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        5,
+        1,
+        29,
+        3,
+        0,
+        2,
+        5958,
+        0
+      ],
+      [
+        0,
+        5,
+        0,
+        93,
+        353,
+        8,
+        0,
+        1,
+        0,
+        4081
+      ]
+    ],
+    "class_order": [
+      "backdoor",
+      "ddos",
+      "dos",
+      "injection",
+      "mitm",
+      "normal",
+      "password",
+      "ransomware",
+      "scanning",
+      "xss"
+    ],
+    "classification_report": {
+      "backdoor": {
+        "precision": 1.0,
+        "recall": 0.998218421521468,
+        "f1-score": 0.9991084165477889,
+        "support": 5613.0
+      },
+      "ddos": {
+        "precision": 0.9881855052019044,
+        "recall": 0.9343114371457152,
+        "f1-score": 0.9604936155626017,
+        "support": 5998.0
+      },
+      "dos": {
+        "precision": 0.9987339482727438,
+        "recall": 0.9691119691119691,
+        "f1-score": 0.983700008907099,
+        "support": 5698.0
+      },
+      "injection": {
+        "precision": 0.9557239057239058,
+        "recall": 0.9479044915678745,
+        "f1-score": 0.9517981389890183,
+        "support": 5989.0
+      },
+      "mitm": {
+        "precision": 0.24302134646962234,
+        "recall": 0.9487179487179487,
+        "f1-score": 0.3869281045751634,
+        "support": 312.0
+      },
+      "normal": {
+        "precision": 0.9929038430872269,
+        "recall": 0.9873929590865842,
+        "f1-score": 0.9901407330842014,
+        "support": 12612.0
+      },
+      "password": {
+        "precision": 0.9964218776622934,
+        "recall": 0.9813727135425407,
+        "f1-score": 0.9888400405816706,
+        "support": 5959.0
+      },
+      "ransomware": {
+        "precision": 0.9923664122137404,
+        "recall": 0.9997738068310337,
+        "f1-score": 0.9960563380281691,
+        "support": 4421.0
+      },
+      "scanning": {
+        "precision": 0.9859341386728446,
+        "recall": 0.993,
+        "f1-score": 0.989454454870049,
+        "support": 6000.0
+      },
+      "xss": {
+        "precision": 0.9548432381843707,
+        "recall": 0.8987007267121779,
+        "f1-score": 0.9259217243335224,
+        "support": 4541.0
+      },
+      "accuracy": 0.9705825735435661,
+      "macro avg": {
+        "precision": 0.9108134215488652,
+        "recall": 0.9658504474237313,
+        "f1-score": 0.9172441575479283,
+        "support": 57143.0
+      },
+      "weighted avg": {
+        "precision": 0.9822647909975512,
+        "recall": 0.9705825735435661,
+        "f1-score": 0.9751020177333712,
+        "support": 57143.0
+      }
+    },
+    "roc_auc_macro_ovr": 0.9967903601559851,
+    "automated_verdict": {
+      "baseline_strength": "strong",
+      "reasons": [
+        "Strong macro-F1.",
+        "Excellent probabilistic class separability.",
+        "Global explainability evidence is available.",
+        "Forensic graph layer is active.",
+        "Counterfactual stage still needs completion."
+      ]
+    }
+  },
+  "xai": {
+    "lime_local": {
+      "instance_index": 0,
+      "predicted_class_index": 5,
+      "predicted_class_name": "normal",
+      "true_class_name": "normal",
+      "top_features": [
+        {
+          "feature": "proto=udp",
+          "weight": 0.16353471153122337
+        },
+        {
+          "feature": "service=dns",
+          "weight": 0.10344764021205415
+        },
+        {
+          "feature": "weird_notice=-",
+          "weight": -0.07320512270445591
+        },
+        {
+          "feature": "dns_RA=-",
+          "weight": -0.06186236206894504
+        },
+        {
+          "feature": "ssl_resumed=-",
+          "weight": -0.05707006625807193
+        },
+        {
+          "feature": "ssl_version=-",
+          "weight": -0.056209161052490096
+        },
+        {
+          "feature": "http_resp_mime_types=-",
+          "weight": -0.05372990991090949
+        },
+        {
+          "feature": "ssl_established=-",
+          "weight": -0.050001630390283484
+        },
+        {
+          "feature": "dns_rejected=-",
+          "weight": -0.048294218435073
+        },
+        {
+          "feature": "ssl_cipher=-",
+          "weight": -0.04137289744185101
+        }
+      ]
+    }
+  },
+  "forensics": {
+    "prediction_table_summary": {
+      "n_rows": 57143,
+      "mean_predicted_confidence": 0.6724842091854766,
+      "mean_entropy_score": 1.2016685246661818,
+      "mean_risk_vs_normal": 0.8109681014661265,
+      "mean_suspicion_score": 1.0063183130661544,
+      "misclassification_count": 1681
+    },
+    "graph_available": true,
+    "graph_n_nodes": 518,
+    "graph_n_edges": 674,
+    "top_suspicious_nodes": [
+      {
+        "node": "192.168.1.190",
+        "out_suspicion": 85.67605055852871,
+        "in_suspicion": 11.901754373341708,
+        "out_degree": 156,
+        "in_degree": 14,
+        "pagerank": 0.007845544772511077,
+        "risk_score": 54.8425156443685
+      },
+      {
+        "node": "192.168.1.31",
+        "out_suspicion": 88.73919768721912,
+        "in_suspicion": 0.0,
+        "out_degree": 69,
+        "in_degree": 0,
+        "pagerank": 0.0017350597856801758,
+        "risk_score": 42.396026086844785
+      },
+      {
+        "node": "192.168.1.30",
+        "out_suspicion": 74.32494967234483,
+        "in_suspicion": 2.7094061619662484,
+        "out_degree": 60,
+        "in_degree": 2,
+        "pagerank": 0.0025815303545205725,
+        "risk_score": 36.74331802359871
+      },
+      {
+        "node": "192.168.1.34",
+        "out_suspicion": 65.77246248943996,
+        "in_suspicion": 1.3299129993165983,
+        "out_degree": 53,
+        "in_degree": 1,
+        "pagerank": 0.0022694559225329355,
+        "risk_score": 32.10841278675547
+      },
+      {
+        "node": "192.168.1.152",
+        "out_suspicion": 47.97858286535682,
+        "in_suspicion": 13.077919584866471,
+        "out_degree": 55,
+        "in_degree": 11,
+        "pagerank": 0.003316305065044883,
+        "risk_score": 29.71547228261568
+      },
+      {
+        "node": "192.168.1.195",
+        "out_suspicion": 42.044117681162376,
+        "in_suspicion": 13.043899669049717,
+        "out_degree": 39,
+        "in_degree": 11,
+        "pagerank": 0.0033226056436265502,
+        "risk_score": 25.731481494308593
+      },
+      {
+        "node": "2405:6e00:10ce:2c00:20c:29ff:feee:e07a",
+        "out_suspicion": 36.55687007817057,
+        "in_suspicion": 0.0,
+        "out_degree": 101,
+        "in_degree": 0,
+        "pagerank": 0.0017350597856801758,
+        "risk_score": 24.723095043225364
+      },
+      {
+        "node": "192.168.1.180",
+        "out_suspicion": 29.784021976153706,
+        "in_suspicion": 1.121405976993163,
+        "out_degree": 25,
+        "in_degree": 1,
+        "pagerank": 0.001796142094960119,
+        "risk_score": 14.850389811978424
+      },
+      {
+        "node": "192.168.1.32",
+        "out_suspicion": 22.54106572949644,
+        "in_suspicion": 0.0,
+        "out_degree": 19,
+        "in_degree": 0,
+        "pagerank": 0.0017350597856801758,
+        "risk_score": 10.916773303755713
+      },
+      {
+        "node": "192.168.1.193",
+        "out_suspicion": 12.474493150698958,
+        "in_suspicion": 10.18432457811353,
+        "out_degree": 12,
+        "in_degree": 9,
+        "pagerank": 0.004759751411261114,
+        "risk_score": 10.146046583995894
+      },
+      {
+        "node": "192.168.1.39",
+        "out_suspicion": 11.205650372878614,
+        "in_suspicion": 0.0,
+        "out_degree": 9,
+        "in_degree": 0,
+        "pagerank": 0.0017350597856801758,
+        "risk_score": 5.382607161108583
+      },
+      {
+        "node": "192.168.1.1",
+        "out_suspicion": 3.6077828789473396,
+        "in_suspicion": 7.949029770239219,
+        "out_degree": 4,
+        "in_degree": 7,
+        "pagerank": 0.002527464634979861,
+        "risk_score": 4.928327575577698
+      },
+      {
+        "node": "192.168.1.36",
+        "out_suspicion": 9.338590475545047,
+        "in_suspicion": 0.0,
+        "out_degree": 7,
+        "in_degree": 0,
+        "pagerank": 0.0017350597856801758,
+        "risk_score": 4.435783202175155
+      },
+      {
+        "node": "2405:6e00:10ce:2c00:9064:17:85d2:57d4",
+        "out_suspicion": 8.028626182962425,
+        "in_suspicion": 0.0,
+        "out_degree": 8,
+        "in_degree": 0,
+        "pagerank": 0.0017350597856801758,
+        "risk_score": 4.011797485142106
+      },
+      {
+        "node": "192.168.1.255",
+        "out_suspicion": 0.0,
+        "in_suspicion": 7.648336815777976,
+        "out_degree": 0,
+        "in_degree": 10,
+        "pagerank": 0.0066828571161655585,
+        "risk_score": 3.295837616156626
+      },
+      {
+        "node": "192.168.1.37",
+        "out_suspicion": 4.968151123259882,
+        "in_suspicion": 2.278320445570131,
+        "out_degree": 4,
+        "in_degree": 2,
+        "pagerank": 0.004329945093375968,
+        "risk_score": 3.2716225719936673
+      },
+      {
+        "node": "192.168.1.33",
+        "out_suspicion": 4.926620091975298,
+        "in_suspicion": 2.310591720534683,
+        "out_degree": 4,
+        "in_degree": 2,
+        "pagerank": 0.004329945093375968,
+        "risk_score": 3.2646915419691993
+      },
+      {
+        "node": "117.18.237.29",
+        "out_suspicion": 0.0,
+        "in_suspicion": 7.856195558849649,
+        "out_degree": 0,
+        "in_degree": 6,
+        "pagerank": 0.0020010855981964252,
+        "risk_score": 2.9572588847745336
+      },
+      {
+        "node": "192.168.1.184",
+        "out_suspicion": 0.9800119291999423,
+        "in_suspicion": 6.138499187116274,
+        "out_degree": 1,
+        "in_degree": 5,
+        "pagerank": 0.013197733352841811,
+        "risk_score": 2.8361940744854275
+      },
+      {
+        "node": "192.168.1.194",
+        "out_suspicion": 1.8672604682193241,
+        "in_suspicion": 4.447065950981083,
+        "out_degree": 2,
+        "in_degree": 4,
+        "pagerank": 0.003403986237740452,
+        "risk_score": 2.6817047698296026
+      }
+    ]
+  },
+  "counterfactuals": {
+    "status": "failed_or_skipped",
+    "reason": "The target class for normal could not be identified"
+  },
+  "global_explainability": {
+    "method_selected": "shap",
+    "top_features": [
+      {
+        "feature": "num__src_ip_bytes",
+        "importance": 0.01600093414038948
+      },
+      {
+        "feature": "num__dst_port",
+        "importance": 0.015043017175471407
+      },
+      {
+        "feature": "num__duration",
+        "importance": 0.012624802417431396
+      },
+      {
+        "feature": "cat__conn_state_REJ",
+        "importance": 0.011291713551291953
+      },
+      {
+        "feature": "num__src_bytes",
+        "importance": 0.010944998564706843
+      },
+      {
+        "feature": "num__dst_bytes",
+        "importance": 0.01055947478114248
+      },
+      {
+        "feature": "cat__conn_state_SF",
+        "importance": 0.0103567596968082
+      },
+      {
+        "feature": "num__src_port",
+        "importance": 0.009027167694478555
+      },
+      {
+        "feature": "num__dst_ip_bytes",
+        "importance": 0.008671747339619557
+      },
+      {
+        "feature": "cat__service_http",
+        "importance": 0.008651649053221562
+      },
+      {
+        "feature": "cat__conn_state_S0",
+        "importance": 0.008531271928763273
+      },
+      {
+        "feature": "num__src_pkts",
+        "importance": 0.008391916673667342
+      },
+      {
+        "feature": "num__dst_pkts",
+        "importance": 0.008277510701558083
+      },
+      {
+        "feature": "cat__service_-",
+        "importance": 0.006384261111380035
+      },
+      {
+        "feature": "cat__conn_state_OTH",
+        "importance": 0.00516742293124969
+      },
+      {
+        "feature": "cat__proto_tcp",
+        "importance": 0.004521737471652575
+      },
+      {
+        "feature": "cat__proto_udp",
+        "importance": 0.004072165712662147
+      },
+      {
+        "feature": "cat__service_dns",
+        "importance": 0.0031496456589002377
+      },
+      {
+        "feature": "cat__conn_state_S1",
+        "importance": 0.002827200828690227
+      },
+      {
+        "feature": "cat__conn_state_S3",
+        "importance": 0.002517033462639223
+      }
+    ]
+  },
+  "artifact_registry": [
+    {
+      "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/classification_report.csv",
+      "description": "Per-class classification report (CSV)"
+    },
+    {
+      "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/classification_report.xlsx",
+      "description": "Per-class classification report (Excel)"
+    },
+    {
+      "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/confusion_matrix_table.csv",
+      "description": "Confusion matrix table (CSV)"
+    },
+    {
+      "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/confusion_matrix.png",
+      "description": "Confusion matrix figure"
+    },
+    {
+      "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/global_feature_importance.csv",
+      "description": "Global feature importance table"
+    },
+    {
+      "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/global_feature_importance.png",
+      "description": "Global feature importance figure"
+    },
+    {
+      "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/top_suspicious_nodes.csv",
+      "description": "Top suspicious nodes table"
+    },
+    {
+      "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/top_suspicious_flows.csv",
+      "description": "Top suspicious flows table"
+    },
+    {
+      "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/reports/summary_report.txt",
+      "description": "Compact summary report"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+run_id,timestamp,model_name,accuracy,precision_macro,recall_macro,f1_macro,n_train,n_test
+20260329_093443,2026-03-29T09:41:13.770418,RandomForestClassifier,0.9705825735435661,0.9108134215488652,0.9658504474237313,0.9172441575479283,133331,57143

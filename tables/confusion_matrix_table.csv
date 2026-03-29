@@ -1,0 +1,11 @@
+true_pred,backdoor,ddos,dos,injection,mitm,normal,password,ransomware,scanning,xss
+backdoor,5603,0,0,0,9,0,1,0,0,0
+ddos,0,5604,2,144,43,68,19,24,0,94
+dos,0,5,5522,4,104,6,0,0,57,0
+injection,0,44,0,5677,187,1,0,0,26,54
+mitm,0,3,0,9,296,1,0,0,2,1
+normal,0,6,0,5,120,12453,1,7,0,20
+password,0,2,0,7,77,1,5848,0,0,24
+ransomware,0,0,0,0,0,1,0,4420,0,0
+scanning,0,2,5,1,29,3,0,2,5958,0
+xss,0,5,0,93,353,8,0,1,0,4081

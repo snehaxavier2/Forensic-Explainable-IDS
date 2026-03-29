@@ -1,0 +1,29 @@
+Forensic-Ready Explainable IDS — Compact Result Report
+==========================================================
+Run ID: 20260329_093443
+Created at: 2026-03-29T09:34:43.881350
+
+Core predictive metrics:
+- Accuracy: 0.9705825735435661
+- Macro precision: 0.9108134215488652
+- Macro recall: 0.9658504474237313
+- Macro F1: 0.9172441575479283
+- ROC-AUC macro OVR: 0.9967903601559851
+
+Forensic graph summary:
+- Graph available: True
+- Number of nodes: 518
+- Number of edges: 674
+
+Counterfactual status:
+- failed_or_skipped
+
+Saved artifacts:
+- Per-class classification report (CSV): /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/classification_report.csv
+- Per-class classification report (Excel): /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/classification_report.xlsx
+- Confusion matrix table (CSV): /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/confusion_matrix_table.csv
+- Confusion matrix figure: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/confusion_matrix.png
+- Global feature importance table: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/global_feature_importance.csv
+- Global feature importance figure: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/global_feature_importance.png
+- Top suspicious nodes table: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/top_suspicious_nodes.csv
+- Top suspicious flows table: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/top_suspicious_flows.csv
