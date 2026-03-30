@@ -1,7 +1,7 @@
 Forensic-Ready Explainable IDS — Compact Result Report
 ==========================================================
-Run ID     : 20260329_164443
-Created at : 2026-03-29T16:44:43.629134
+Run ID     : 20260330_093938
+Created at : 2026-03-30T09:39:38.260654
 
 Core predictive metrics:
   Accuracy          : 0.9694559285596164
