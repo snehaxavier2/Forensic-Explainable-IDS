@@ -172,7 +172,7 @@ All outputs will be saved automatically to:
 ```
 @misc{Xavier2026ForensicXAIIDS,
   title={Forensic-Ready Explainable Intrusion Detection with Temporal Graph Modeling and Counterfactual Cyber Defense},
-  author={Sneha Xavier and Habib Hamam},
+  author={Sghaier Guizani, Habib Hamam, Sneha Xavier, Hela Elmannai, Tuwailaa Alshammari }
   year={2026},
   note={GitHub repository, https://github.com/snehaxavier2/Forensic-Explainable-IDS}
 }
