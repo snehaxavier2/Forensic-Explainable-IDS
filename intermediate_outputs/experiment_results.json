@@ -1,70 +1,70 @@
 {
-  "run_id": "20260330_180803",
+  "run_id": "20260331_065437",
   "title": "Forensic-Ready Explainable Intrusion Detection with Temporal Graph Modeling and Counterfactual Cyber Defense",
-  "created_at": "2026-03-30T18:08:03.896466",
+  "created_at": "2026-03-31T06:54:37.778204",
   "status_notes": [
     {
-      "timestamp": "2026-03-30T18:08:03.918508",
+      "timestamp": "2026-03-31T06:54:38.069688",
       "note": "Experiment registry initialized."
     },
     {
-      "timestamp": "2026-03-30T18:08:10.864424",
+      "timestamp": "2026-03-31T06:54:42.343996",
       "note": "Dataset loaded and validated."
     },
     {
-      "timestamp": "2026-03-30T18:08:19.431373",
+      "timestamp": "2026-03-31T06:54:46.904640",
       "note": "Data cleaning completed."
     },
     {
-      "timestamp": "2026-03-30T18:08:22.079555",
+      "timestamp": "2026-03-31T06:54:47.428909",
       "note": "Feature matrix and target vector prepared with leakage-safe column removal."
     },
     {
-      "timestamp": "2026-03-30T18:08:24.433778",
+      "timestamp": "2026-03-31T06:54:47.766902",
       "note": "Train/test split completed with stratification."
     },
     {
-      "timestamp": "2026-03-30T18:14:02.098230",
+      "timestamp": "2026-03-31T06:58:25.517340",
       "note": "Random Forest baseline model trained with diagnostics."
     },
     {
-      "timestamp": "2026-03-30T18:14:07.504161",
+      "timestamp": "2026-03-31T06:58:30.554487",
       "note": "Macro-F1 = 0.9687. Promising baseline."
     },
     {
-      "timestamp": "2026-03-30T18:14:17.937814",
+      "timestamp": "2026-03-31T06:58:56.352130",
       "note": "Global explainability completed using shap."
     },
     {
-      "timestamp": "2026-03-30T18:14:21.819263",
+      "timestamp": "2026-03-31T06:58:58.944127",
       "note": "LIME local explanation completed."
     },
     {
-      "timestamp": "2026-03-30T18:14:21.949080",
+      "timestamp": "2026-03-31T06:58:59.061246",
       "note": "Forensic prediction table constructed with hybrid suspicion scoring."
     },
     {
-      "timestamp": "2026-03-30T18:14:24.970612",
+      "timestamp": "2026-03-31T06:59:02.159928",
       "note": "Temporal interaction graph constructed with normalized edge suspicion."
     },
     {
-      "timestamp": "2026-03-30T18:14:25.010161",
+      "timestamp": "2026-03-31T06:59:02.192607",
       "note": "Graph-based suspicious node ranking completed."
     },
     {
-      "timestamp": "2026-03-30T18:14:27.326490",
+      "timestamp": "2026-03-31T06:59:04.372181",
       "note": "Counterfactual stage completed with status: success."
     },
     {
-      "timestamp": "2026-03-30T18:14:35.793991",
+      "timestamp": "2026-03-31T06:59:29.001927",
       "note": "Ablation study completed."
     },
     {
-      "timestamp": "2026-03-30T18:14:36.294455",
+      "timestamp": "2026-03-31T06:59:30.695809",
       "note": "Forensic flow concentration analysis completed."
     },
     {
-      "timestamp": "2026-03-30T18:14:37.074192",
+      "timestamp": "2026-03-31T06:59:32.457449",
       "note": "Counterfactual probability shift visualization completed."
     }
   ],
@@ -152,11 +152,11 @@
     ],
     "remaining_missing_values_total": 0,
     "dropped_columns": [
-      "type",
-      "timestamp",
-      "dst_ip",
+      "label",
       "src_ip",
-      "label"
+      "dst_ip",
+      "timestamp",
+      "type"
     ],
     "n_features_raw": 40,
     "n_numeric_features": 16,
@@ -237,7 +237,7 @@
       "n_jobs": -1,
       "random_state": 42
     },
-    "training_time_sec": 332.212997674942,
+    "training_time_sec": 213.5514738559723,
     "n_transformed_features": 887,
     "tree_depth": {
       "avg_depth": 93.625,
@@ -801,21 +801,21 @@
         "precision_at_5": 0.4,
         "precision_at_10": 0.5,
         "recall_at_10": 0.38461538461538464,
-        "mrr": 0.1047307133378923
+        "mrr": 0.10473071333789229
       },
       "In-Degree Only": {
         "precision_at_3": 0.0,
         "precision_at_5": 0.0,
         "precision_at_10": 0.1,
         "recall_at_10": 0.07692307692307693,
-        "mrr": 0.01857007156993244
+        "mrr": 0.018570071569932442
       },
       "No-Graph Baseline": {
         "precision_at_3": 1.0,
         "precision_at_5": 0.8,
         "precision_at_10": 0.6,
         "recall_at_10": 0.46153846153846156,
-        "mrr": 0.19667422304592003
+        "mrr": 0.19667422304592
       }
     },
     "flow_concentration": {
@@ -847,7 +847,7 @@
         "dst_port": 4444,
         "proto": "tcp",
         "service": "-",
-        "duration": 91662.2,
+        "duration": 11491.6,
         "src_bytes": 0,
         "dst_bytes": 0,
         "conn_state": "OTH",
@@ -869,7 +869,7 @@
         "ssl_resumed": "-",
         "ssl_established": "-",
         "ssl_subject": "-",
-        "ssl_issuer": "-",
+        "ssl_issuer": "CN=Microsoft IT TLS CA 5;OU=Microsoft IT;O=Microsoft Corporation;L=Redmond;ST=Washington;C=US",
         "http_trans_depth": "-",
         "http_method": "-",
         "http_uri": "-",
@@ -880,7 +880,7 @@
         "http_user_agent": "-",
         "http_orig_mime_types": "-",
         "http_resp_mime_types": "-",
-        "weird_name": "bad_TCP_checksum",
+        "weird_name": "-",
         "weird_addl": "-",
         "weird_notice": "-",
         "type": 5
@@ -888,7 +888,7 @@
     ],
     "probability_shift_viz": {
       "normal_prob_original": 0.0,
-      "normal_prob_counterfactual": 0.44,
+      "normal_prob_counterfactual": 0.425,
       "original_probabilities": {
         "backdoor": 0.0,
         "ddos": 0.0,
@@ -903,15 +903,15 @@
       },
       "counterfactual_probabilities": {
         "backdoor": 0.015,
-        "ddos": 0.17,
+        "ddos": 0.175,
         "dos": 0.005,
-        "injection": 0.025,
+        "injection": 0.03,
         "mitm": 0.005,
-        "normal": 0.44,
+        "normal": 0.425,
         "password": 0.005,
         "ransomware": 0.28,
         "scanning": 0.0,
-        "xss": 0.055
+        "xss": 0.06
       }
     }
   },
@@ -1032,10 +1032,6 @@
     {
       "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/top_suspicious_flows.csv",
       "description": "Top suspicious flows table"
-    },
-    {
-      "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/pipeline_diagram.png",
-      "description": "Pipeline diagram for MethodsX"
     },
     {
       "path": "/content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/ablation_precision_at_k.png",

@@ -1,7 +1,7 @@
 {
   "model_name": "RandomForestClassifier",
   "n_estimators": 200,
-  "training_time_sec": 332.21,
+  "training_time_sec": 213.55,
   "training_accuracy": 0.9999,
   "test_accuracy": 0.989,
   "macro_precision": 0.9642,

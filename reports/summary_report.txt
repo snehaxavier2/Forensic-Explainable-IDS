@@ -1,12 +1,12 @@
 Forensic-Ready Explainable IDS — Compact Result Report
 ==========================================================
-Run ID             : 20260330_180803
-Created at         : 2026-03-30T18:08:03.896466
+Run ID             : 20260331_065437
+Created at         : 2026-03-31T06:54:37.778204
 
 Model:
   Model name        : RandomForestClassifier
   Trees             : 200
-  Training time (s) : 332.21
+  Training time (s) : 213.55
   Training accuracy : 0.9999
 
 Core predictive metrics:
@@ -37,7 +37,6 @@ Saved artifacts:
   - Global feature importance figure: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/global_feature_importance.png
   - Top suspicious nodes table: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/top_suspicious_nodes.csv
   - Top suspicious flows table: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/tables/top_suspicious_flows.csv
-  - Pipeline diagram for MethodsX: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/pipeline_diagram.png
   - Ablation study Precision@k figure: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/ablation_precision_at_k.png
   - Ablation study Recall@10 and MRR figure: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/ablation_recall_mrr.png
   - Suspicious flow concentration curve: /content/drive/MyDrive/Outputs/Forensic_Ready_XAI_IDS/article_assets/figures/flow_concentration.png
